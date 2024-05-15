@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>411</width>
+    <height>497</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 10pt &quot;Noto Sans SemiCondensed&quot;;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(172, 229, 238, 255), stop:1 rgba(204, 204, 255, 255))</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QFrame" name="mainFrame">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(255,255,255, 80);
+border: 1px solid rgb(70,68,81);
+color: rgb(70,68,81);
+border-radius: 10;
+font-size: 14pt;
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="newEntryLabel">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: none;
+border: none;
+font-weight: bold;
+font-size: 20pt;</string>
+        </property>
+        <property name="text">
+         <string>Добавление записи</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="descriptionLineEdit">
+        <property name="styleSheet">
+         <string notr="true">padding-left: 5;</string>
+        </property>
+        <property name="inputMask">
+         <string/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::EchoMode::Normal</enum>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="dragEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Описание</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="priceSpinBox">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>100000000</number>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="categoryComboBox">
+        <property name="contextMenuPolicy">
+         <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QComboBox {
+    border-radius: 3px;
+    padding-left: 5px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: white;
+}</string>
+        </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+        <property name="currentText">
+         <string/>
+        </property>
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+        <property name="placeholderText">
+         <string>Категория</string>
+        </property>
+        <property name="duplicatesEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>Поступления</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Авиабилеты</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Автоуслуги</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Аптеки</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Аренда авто</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Благотворительность</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Дом, ремонт</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Ж/д билеты</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Животные</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Искусство</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Кино</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Красота</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Медицинские услуги</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Музыка</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Образование</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Одежда, обувь</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Отели</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Развлечения</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Рестораны</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Связь</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Сервис-услуги</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Спорттовары</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Сувениры</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Супермаркеты</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Топливо</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Транспорт</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Фастфуд</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Финансовые услуги</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Фото/видео</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Цветы</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Частные услуги</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Прочее</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="dateEdit">
+        <property name="styleSheet">
+         <string notr="true">border-radius: 5;</string>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+        </property>
+        <property name="maximumDate">
+         <date>
+          <year>2100</year>
+          <month>12</month>
+          <day>31</day>
+         </date>
+        </property>
+        <property name="date">
+         <date>
+          <year>2024</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="saveButton">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton { 
+background-color: rgba(255,255,255, 80);
+border: 1px solid rgb(70,68,81);
+}
+QPushButton:hover {
+background-color: rgba(255,255,255, 110);
+}
+QPushButton:pressed {
+background-color: rgba(255,255,255, 150);
+}</string>
+        </property>
+        <property name="text">
+         <string>Сохранить</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

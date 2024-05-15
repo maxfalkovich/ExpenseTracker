@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/credit_card_40dp.svg</file>
+    <file>icons/calendar_today_24dp.svg</file>
+    <file>icons/delete_24dp.svg</file>
+    <file>icons/currency_ruble_40dp.svg</file>
+    <file>icons/edit_24dp.svg</file>
+    <file>icons/local_offer_24dp.svg</file>
+    <file>icons/post_add_24dp.svg</file>
+  </qresource>
+</RCC>
