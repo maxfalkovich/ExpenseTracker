@@ -14,7 +14,7 @@ class Data:
         if not query.exec("CREATE TABLE IF NOT EXISTS expenses ("
                           "id integer PRIMARY KEY AUTOINCREMENT NOT NULL,"
                           "description VARCHAR(32) NOT NULL,"
-                          "value REAL NOT NULL,"
+                          "value integer NOT NULL,"
                           "category VARCHAR(32) NOT NULL,"
                           "date DATE NOT NULL)"):
             print(query.lastError().text())
@@ -54,7 +54,7 @@ class Data:
         if query.next():
             outcome_value = query.value(0) or 0
 
-        return str(income_value - outcome_value)
+        return str(int(income_value - outcome_value))
 
     def getTableWithFilters(self, date_cb, category_cb, date, category):
         query_text = "SELECT * FROM expenses"
