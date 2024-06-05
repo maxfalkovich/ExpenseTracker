@@ -1,5 +1,15 @@
-import sys
+# Модуль для работы с графическим интерфейсом приложения учета расходов с использованием PyQt6.
+#
+# Класс ExpanseTracker отвечает за:
+# - Инициализацию главного окна приложения.
+# - Установку соединения с базой данных.
+# - Отображение и обновление данных из базы данных.
+# - Обработку пользовательских взаимодействий, таких как добавление, редактирование и удаление записей.
+# - Открытие окон добавления и редактирования записей.
+# - Фильтрацию данных по дате и категории.
 
+
+import sys
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt6.QtSql import QSqlQueryModel
@@ -13,20 +23,24 @@ from connection import Data
 
 class ExpanseTracker(QMainWindow):
     def __init__(self):
+        """
+        Инициализирует главное окно приложения, устанавливает соединение с базой данных,
+        отображает актуальные данные и подключает сигналы к слотам.
+        """
         super(ExpanseTracker, self).__init__()
-        self.column_names = {
-                            "id": "ID",
-                            "description": "Описание",
-                            "value": "Стоимость",
-                            "category": "Категория",
-                            "date": "Дата"
-                            }
+
+        # Инициализация главного окна
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        # Установка соединения с базой данных
         self.conn = Data()
+
+        # Отображение и обновление данных
         self.viewData()
         self.reloadData()
 
+        # Подключение сигналов к слотам
         self.ui.addButton.clicked.connect(self.openAddEntryWindow)
         self.ui.editButton.clicked.connect(self.openEditEntryWindow)
         self.ui.deleteButton.clicked.connect(self.deleteEntry)
@@ -36,9 +50,16 @@ class ExpanseTracker(QMainWindow):
         self.ui.dateEdit.dateChanged.connect(self.viewData)
 
     def reloadData(self):
+        """
+        Перезагружает данные баланса.
+        """
         self.ui.balanceDynamicLabel.setText(self.conn.getBalance())
 
     def viewData(self):
+        """
+        Отображает данные из базы данных с учетом фильтров.
+        """
+        # Получение и выполнение запроса с фильтрами
         date_cb = self.ui.dateCheckBox.isChecked()
         category_cb = self.ui.categoryCheckBox.isChecked()
         date = self.ui.dateEdit.text()
@@ -47,6 +68,7 @@ class ExpanseTracker(QMainWindow):
         self.model = QSqlQueryModel(self)
         self.model.setQuery(query)
 
+        # Замена заголовков колонок на русский язык
         self.model.setHeaderData(0, Qt.Orientation.Horizontal, "ID")
         self.model.setHeaderData(1, Qt.Orientation.Horizontal, "Описание")
         self.model.setHeaderData(2, Qt.Orientation.Horizontal, "Сумма")
@@ -54,6 +76,7 @@ class ExpanseTracker(QMainWindow):
         self.model.setHeaderData(4, Qt.Orientation.Horizontal, "Дата")
         self.ui.tableView.setModel(self.model)
 
+        # Настройка ширины колонок
         self.ui.tableView.setColumnWidth(1, 400)
         self.ui.tableView.setColumnWidth(0, 66)
         self.ui.tableView.setColumnWidth(2, 120)
@@ -61,6 +84,9 @@ class ExpanseTracker(QMainWindow):
         self.ui.tableView.setColumnWidth(4, 110)
 
     def updateCategoryCheckBox(self):
+        """
+        Обновляет состояние categoryComboBox в зависимости от состояния categoryCheckBox.
+        """
         if self.ui.categoryCheckBox.isChecked():
             self.ui.categoryComboBox.setDisabled(True)
         else:
@@ -68,6 +94,9 @@ class ExpanseTracker(QMainWindow):
         self.viewData()
 
     def updateDateCheckBox(self):
+        """
+        Обновляет состояние dateEdit в зависимости от состояния dateCheckBox.
+        """
         if self.ui.dateCheckBox.isChecked():
             self.ui.dateEdit.setDisabled(True)
         else:
@@ -75,14 +104,21 @@ class ExpanseTracker(QMainWindow):
         self.viewData()
 
     def showNoSelectionMessage(self):
+        """
+        Показывает предупреждение при попытке редактирования записи,
+        если ни одна запись не выбрана.
+        """
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Icon.Warning)
-        msg.setWindowTitle("Ничего не выделено")
-        msg.setText("Пожалуйста, сначала выделите ID нужной записи")
+        msg.setWindowTitle("Не выбрана запись")
+        msg.setText("Пожалуйста, сначала выберите ID нужной записи")
         msg.setStandardButtons(QMessageBox.StandardButton.Ok)
         msg.exec()
 
     def openAddEntryWindow(self):
+        """
+        Открывает окно для добавления новой записи.
+        """
         self.window = QtWidgets.QDialog()
         self.addEntryWindow = NewEntryUI()
         self.addEntryWindow.setupUi(self.window)
@@ -90,6 +126,9 @@ class ExpanseTracker(QMainWindow):
         self.addEntryWindow.saveButton.clicked.connect(self.addEntry)
 
     def openEditEntryWindow(self):
+        """
+        Открывает окно для редактирования выбранной записи.
+        """
         selected_indexes = self.ui.tableView.selectedIndexes()
         if selected_indexes and selected_indexes[0].column() == 0:
             self.window = QtWidgets.QDialog()
@@ -101,6 +140,9 @@ class ExpanseTracker(QMainWindow):
             self.showNoSelectionMessage()
 
     def addEntry(self):
+        """
+        Добавляет новую запись в базу данных.
+        """
         description = self.addEntryWindow.descriptionLineEdit.text()
         value = self.addEntryWindow.priceSpinBox.text()
         category = self.addEntryWindow.categoryComboBox.currentText()
@@ -112,6 +154,9 @@ class ExpanseTracker(QMainWindow):
         self.window.close()
 
     def editEntry(self):
+        """
+        Редактирует выбранную запись в базе данных.
+        """
         index = self.ui.tableView.selectedIndexes()[0]
         id = str(self.ui.tableView.model().data(index))
 
@@ -126,6 +171,9 @@ class ExpanseTracker(QMainWindow):
         self.window.close()
 
     def deleteEntry(self):
+        """
+        Удаляет выбранную запись из базы данных.
+        """
         selected_indexes = self.ui.tableView.selectedIndexes()
         if selected_indexes and selected_indexes[0].column() == 0:
             id = str(self.ui.tableView.model().data(selected_indexes[0]))
